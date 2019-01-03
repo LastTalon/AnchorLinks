@@ -1,0 +1,19 @@
+.anchor-link {
+	display: inline;
+	visibility: hidden;
+}
+
+.anchor-space {
+	position: absolute;
+	display: inline;
+	padding: 0 .5ch;
+	margin: 0;
+}
+
+.anchor-space:hover .anchor-link {
+	visibility: visible;
+}
+
+:hover + .anchor-space .anchor-link {
+	visibility: visible;
+}

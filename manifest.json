@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+	"name": "Anchor Links",
+	"version": "0.1.1",
+	
+	"icons": {
+		
+	},
+	
+	"browser_action": {
+		"default_icon": {
+			
+		},
+		"default_title": "Anchor Links"
+	},
+	
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"css": ["anchor.css"],
+			"js": ["anchor.js"]
+		}
+	],
+	
+	"options_page": "options.html",
+	"permissions": ["storage"]
+}
