@@ -1,5 +1,6 @@
-chrome.storage.sync.get("active", function(data) {
-	if (data.active) {
+function createLinks() {
+	if (!createLinks.done) {
+		createLinks.done = true;
 		let anchors = document.getElementsByTagName("*");
 		for (let i = 0; i < anchors.length; i++) {
 			let display = window.getComputedStyle(anchors[i]).display;
@@ -14,5 +15,32 @@ chrome.storage.sync.get("active", function(data) {
 				anchors[i].after(space);
 			}
 		}
+	}
+}
+
+function toggleLinks(active) {
+	let property = "hidden";
+	if (active) {
+		if (!createLinks.done) {
+			createLinks();
+			return;
+		}
+		property = "";
+	}
+	let anchorLinks = document.getElementsByClassName("anchor-link");
+	for (let i = 0; i < anchorLinks.length; i++) {
+		anchorLinks[i].style.visibility = property;
+	}
+}
+
+chrome.storage.sync.get("active", function(data) {
+	if (data.active) {
+		createLinks();
+	}
+});
+
+chrome.runtime.onMessage.addListener(function(message) {
+	if ("active" in message) {
+		toggleLinks(message.active);
 	}
 });
