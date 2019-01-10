@@ -1,18 +1,18 @@
 function createLinks() {
 	if (!createLinks.done) {
 		createLinks.done = true;
-		let anchors = document.getElementsByTagName("*");
-		for (let i = 0; i < anchors.length; i++) {
-			let display = window.getComputedStyle(anchors[i]).display;
-			if (anchors[i].id !== "" && (display === "inline" || display === "inline-block")) {
-				let link = document.createElement("A");
-				let space = document.createElement("DIV");
+		const anchors = document.getElementsByTagName("*");
+		for (const anchor of anchors) {
+			const display = window.getComputedStyle(anchor).display;
+			if (anchor.id !== "" && (display === "inline" || display === "inline-block")) {
+				const link = document.createElement("A");
+				const space = document.createElement("DIV");
 				space.className = "anchor-space";
-				link.href = "#" + anchors[i].id;
+				link.href = "#" + anchor.id;
 				link.className = "anchor-link";
 				link.innerHTML = "#";
 				space.appendChild(link);
-				anchors[i].after(space);
+				anchor.after(space);
 			}
 		}
 	}
@@ -27,9 +27,9 @@ function toggleLinks(active) {
 		}
 		property = "";
 	}
-	let anchorLinks = document.getElementsByClassName("anchor-link");
-	for (let i = 0; i < anchorLinks.length; i++) {
-		anchorLinks[i].style.visibility = property;
+	const anchorLinks = document.getElementsByClassName("anchor-link");
+	for (const link of anchorLinks) {
+		link.style.visibility = property;
 	}
 }
 

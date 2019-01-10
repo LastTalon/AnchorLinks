@@ -31,8 +31,8 @@ chrome.browserAction.onClicked.addListener(function() {
 			chrome.browserAction.setIcon({path: active_icons});
 		}
 		chrome.tabs.query({}, function(tabs) {
-			for (let i = 0; i < tabs.length; i++) {
-				chrome.tabs.sendMessage(tabs[i].id, {active: !data.active});
+			for (const tab of tabs) {
+				chrome.tabs.sendMessage(tab.id, {active: !data.active});
 			}
 		});
 	});
