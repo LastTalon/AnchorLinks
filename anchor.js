@@ -3,7 +3,6 @@ function createLinks() {
 		createLinks.done = true;
 		const anchors = document.getElementsByTagName("*");
 		for (const anchor of anchors) {
-			const display = window.getComputedStyle(anchor).display;
 			if (anchor.id !== "") {
 				const link = document.createElement("A");
 				const space = document.createElement("DIV");
@@ -12,11 +11,7 @@ function createLinks() {
 				link.className = "anchor-link";
 				link.innerHTML = "#";
 				space.appendChild(link);
-				if (display.substring(0, 7) === "inline") {
-					anchor.after(space);
-				} else {
-					anchor.appendChild(space);
-				}
+				anchor.after(space);
 			}
 		}
 	}

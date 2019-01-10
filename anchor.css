@@ -17,7 +17,3 @@
 :hover + .anchor-space .anchor-link {
 	visibility: visible;
 }
-
-:hover > .anchor-space .anchor-link {
-	visibility: visible;
-}
