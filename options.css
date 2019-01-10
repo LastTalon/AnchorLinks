@@ -1,0 +1,35 @@
+html {
+	background-color: #66aaff;
+	color: #ffffffdd;
+}
+
+body {
+	font-family: "Rubik", sans-serif;
+	font-size: 100%;
+	text-align: center;
+}
+
+h1 {
+	margin: .5em 0;
+	font-size: 3em;
+	font-style: normal;
+	font-weight: normal;
+}
+
+p {
+	margin: .5em 0;
+}
+
+#options {
+	display: inline-block;
+	width: 400px;
+	padding: 1ch 2ch;
+	border-radius: 1ch;
+	text-align: left;
+	background-color: #ffffffdd;
+	color: #66aaff;
+}
+
+.option {
+	
+}
