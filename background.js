@@ -1,3 +1,7 @@
+const options = {
+	active: true
+}
+
 const active_icons = {
 	16: "images/icon16.png",
 	32: "images/icon32.png",
@@ -16,24 +20,40 @@ const inactive_icons = {
 	256: "images/inactive_icon256.png"
 }
 
+function propagateSetting(key, value) {
+	if (key === "active") {
+		if (value) {
+			chrome.browserAction.setIcon({path: active_icons});
+		} else {
+			chrome.browserAction.setIcon({path: inactive_icons});
+		}
+	}
+	
+	chrome.tabs.query({}, function(tabs) {
+		for (const tab of tabs) {
+			chrome.tabs.sendMessage(tab.id, {[key]: value});
+		}
+	});
+}
+
 chrome.runtime.onInstalled.addListener(function() {
 	chrome.storage.sync.get({active: true}, function(data) {
 		chrome.storage.sync.set({active: data.active});
+		propagateSetting("active", data.active);
 	});
 });
 
 chrome.browserAction.onClicked.addListener(function() {
 	chrome.storage.sync.get({active: true}, function(data) {
 		chrome.storage.sync.set({active: !data.active});
-		if (data.active) {
-			chrome.browserAction.setIcon({path: inactive_icons});
-		} else {
-			chrome.browserAction.setIcon({path: active_icons});
-		}
-		chrome.tabs.query({}, function(tabs) {
-			for (const tab of tabs) {
-				chrome.tabs.sendMessage(tab.id, {active: !data.active});
-			}
-		});
+		propagateSetting("active", !data.active);
 	});
+});
+
+chrome.runtime.onMessage.addListener(function(message) {
+	for (const key of Object.keys(options)) {
+		if (key in message) {
+			propagateSetting(key, message[key]);
+		}
+	}
 });
