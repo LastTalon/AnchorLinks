@@ -1,7 +1,3 @@
-const options = {
-	active: true
-}
-
 const active_icons = {
 	16: "images/icon16.png",
 	32: "images/icon32.png",
@@ -37,14 +33,16 @@ function propagateSetting(key, value) {
 }
 
 chrome.runtime.onInstalled.addListener(function() {
-	chrome.storage.sync.get({active: true}, function(data) {
-		chrome.storage.sync.set({active: data.active});
-		propagateSetting("active", data.active);
+	chrome.storage.sync.get(options, function(data) {
+		chrome.storage.sync.set(data);
+		for (const key of Object.keys(data)) {
+			propagateSetting(key, data[key]);
+		}
 	});
 });
 
 chrome.browserAction.onClicked.addListener(function() {
-	chrome.storage.sync.get({active: true}, function(data) {
+	chrome.storage.sync.get({active: options.active}, function(data) {
 		chrome.storage.sync.set({active: !data.active});
 		propagateSetting("active", !data.active);
 	});

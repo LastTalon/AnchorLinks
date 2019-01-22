@@ -1,11 +1,3 @@
-const options = {
-	active: true
-}
-
-const descriptions = {
-	active: "Display anchor links in web pages."
-}
-
 function changed(event) {
 	const key = event.target.id;
 	const value = event.target.checked;
@@ -43,8 +35,8 @@ chrome.storage.sync.get(options, function(data) {
 
 chrome.runtime.onMessage.addListener(function(message) {
 	console.log("Message received");
-	for (const key of Object.keys(options)) {
-		if (key in message) {
+	for (const key of Object.keys(message)) {
+		if (key in options) {
 			update(key, message[key]);
 			console.log(key + ": " + message[key]);
 		}

@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Anchor Links",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	
 	"browser_action": {
 		"default_title": "Anchor Links",
@@ -16,7 +16,10 @@
 	},
 	
 	"background": {
-		"scripts": ["background.js"],
+		"scripts": [
+			"option-definitions.js",
+			"background.js"
+		],
 		"persistent": false
 	},
 	
